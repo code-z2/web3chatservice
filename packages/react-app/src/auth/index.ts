@@ -1,0 +1,1 @@
+export { web3authcore, metamaskAdapter, openloginAdapter } from "./instance"
