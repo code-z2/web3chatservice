@@ -4,6 +4,7 @@ interface IContextProps {
   provider;
   providerIsSet;
   connect;
+  openLogin;
   isConnected;
   isConnecting;
   getUser;

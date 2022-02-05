@@ -29,7 +29,7 @@ const Web3AuthProvider = (props) => {
     });
 
     web3auth.on(ADAPTER_EVENTS.ERRORED, (error) => {
-      console.log("login request cancelled", error);
+      setIsConnecting(false);
     });
   };
 
@@ -47,6 +47,13 @@ const Web3AuthProvider = (props) => {
     });
   };
 
+  const openLogin = async () => {
+    await web3authcore.connectTo(openloginAdapter.name).then((value) => {
+      setProvider(value);
+      setProviderIsSet(true);
+    });
+  }
+
   const getUser = async () => {
     return await web3authcore.getUserInfo();
   };
@@ -61,6 +68,7 @@ const Web3AuthProvider = (props) => {
     isConnected,
     isConnecting,
     connect,
+    openLogin,
     getUser,
     logout,
   };

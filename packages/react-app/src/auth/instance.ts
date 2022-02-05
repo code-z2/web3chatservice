@@ -17,9 +17,12 @@ const metamaskAdapter = new MetamaskAdapter({ chainConfig: polygonMumbaiConfig }
 const openloginAdapter = new OpenloginAdapter({
     adapterSettings: {
         network: "testnet",
-        clientId: "BM4cVG9SqfM3E2iU5la8MoL9zTT36oQeiPSPncdDE01yGed-3TOjc-KCiSXym-qKeOJKx5jlJJmgqwc_LNzSjJU",
+        clientId: process.env.REACT_APP_WEB3AUTH_CLIENT_ID!,
         uxMode: "popup"
-    }, chainConfig: polygonMumbaiConfig
+    }, chainConfig: polygonMumbaiConfig,
+    loginSettings: {
+        loginProvider: "google",
+    }
 })
 
 const web3authcore = new Web3AuthCore({
