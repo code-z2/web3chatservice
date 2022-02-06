@@ -21,6 +21,15 @@ import Blockie from "./Blockie";
 
 const styles = { width: 30, height: 30, backgroundColor: "#ffffff", p: 0.8 };
 
+const testSession = [
+  { message: "hello", from: "0xsender", id: "0001" },
+  { message: "hi", from: "0xorg", id: "0002" },
+  { message: "am john, i'm having an issue", from: "0xsender", id: "0003" },
+  { message: "what is your issue", from: "0xorg", id: "0004" },
+  { message: "i cant create v3 LP", from: "0xsender", id: "0005" },
+  { message: "what is the error msg?", from: "0xorg", id: "0006" },
+]
+
 const CustomTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
     "&:hover fieldset": {
