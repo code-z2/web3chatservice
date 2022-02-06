@@ -9,7 +9,7 @@ function App() {
       MuiCard: {
         styleOverrides: {
           root: {
-            boxShadow: "0px 3px 20px 0px rgba(0,0,0,0.2)",
+            boxShadow: "0px 3px 50px 0px rgba(0,0,0,0.3)",
             borderRadius: 10,
             padding: 10,
           },

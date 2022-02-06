@@ -18,7 +18,22 @@ function useWeb3() {
         return address;
     }
 
-    return { getAddress };
+    const signMessage = async (message) => {
+        //@ts-ignore
+        await web3.eth.personal.sign(message, address);
+    }
+
+    const sendTransaction = async (destination) => {
+        //@ts-ignore
+        await web3.eth.sendTransaction({
+            from: address,
+            to: destination,
+            //@ts-ignore
+            value: web3.utils.toWei(1),
+        });
+    }
+
+    return { getAddress, signMessage, sendTransaction };
 }
 
 export default useWeb3;

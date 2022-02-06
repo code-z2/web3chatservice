@@ -3,6 +3,7 @@ import {
   CardHeader,
   CardActions,
   CardContent,
+  Chip,
   IconButton,
   TextField,
   Avatar,
@@ -18,17 +19,10 @@ import { Body } from ".";
 import { useWeb3Auth } from "../providers/web3AuthProvider";
 import useWeb3 from "../hooks/useWeb3";
 import Blockie from "./Blockie";
+import { useState } from "react";
+import Messages from "./Messages";
 
 const styles = { width: 30, height: 30, backgroundColor: "#ffffff", p: 0.8 };
-
-const testSession = [
-  { message: "hello", from: "0xsender", id: "0001" },
-  { message: "hi", from: "0xorg", id: "0002" },
-  { message: "am john, i'm having an issue", from: "0xsender", id: "0003" },
-  { message: "what is your issue", from: "0xorg", id: "0004" },
-  { message: "i cant create v3 LP", from: "0xsender", id: "0005" },
-  { message: "what is the error msg?", from: "0xorg", id: "0006" },
-]
 
 const CustomTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
@@ -43,12 +37,21 @@ const CustomTextField = styled(TextField)({
 });
 
 const Main = () => {
-  const { connect, isConnected, isConnecting, openLogin, logout } = useWeb3Auth();
+  const [session, setSession] = useState(false);
+  const {
+    connect,
+    isConnected,
+    isConnecting,
+    openLogin,
+    logout,
+  } = useWeb3Auth();
   const { getAddress } = useWeb3();
 
   return (
     <Body>
-      <Card sx={{ width: "320px", height: "500px", backgroundColor: "#E8E8E8" }}>
+      <Card
+        sx={{ width: "320px", height: "500px", backgroundColor: "#E8E8E8" }}
+      >
         {console.log(typeof getAddress())}
         <CardHeader
           title="chat"
@@ -56,9 +59,17 @@ const Main = () => {
             isConnecting ? (
               <LoadingButton loading>Connecting</LoadingButton>
             ) : isConnected ? (
-              <IconButton aria-label="account" onClick={() => logout()} sx={{ ...styles, backgroundColor: "#adf802", }}>
+              <IconButton
+                aria-label="account"
+                onClick={() => logout()}
+                sx={{ ...styles, backgroundColor: "#adf802" }}
+              >
                 <Avatar sx={{ width: 25, height: 25 }}>
-                  {typeof getAddress() === undefined ? <FiberManualRecordIcon /> : <Blockie address={getAddress()} size={7} />}
+                  {typeof getAddress() === undefined ? (
+                    <FiberManualRecordIcon />
+                  ) : (
+                    <Blockie address={getAddress()} size={7} />
+                  )}
                 </Avatar>
               </IconButton>
             ) : (
@@ -74,7 +85,20 @@ const Main = () => {
           }
         />
         <CardContent sx={{ height: 365 }}>
-          in here, a lot needs to happen
+          {session ? (
+            <Messages />
+          ) : (
+            <Chip
+              label="Create Session"
+              onClick={() => setSession(true)}
+              sx={{
+                mt: "50%",
+                ml: "25%",
+                color: "#ffffff",
+                background: "#7dc4b2"
+              }}
+            />
+          )}
         </CardContent>
         <CardActions disableSpacing>
           <CustomTextField
