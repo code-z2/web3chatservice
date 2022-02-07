@@ -1,15 +1,18 @@
 {
   "name": "@project/subgraph",
   "version": "1.0.0",
-  "dependencies": {
-    "@graphprotocol/graph-cli": "0.20.1",
-    "@graphprotocol/graph-ts": "0.20.0"
-  },
-  "license": "MIT",
+  "license": "UNLICENSED",
   "scripts": {
     "auth": "graph auth https://api.thegraph.com/ $GRAPH_ACCESS_TOKEN",
-    "build": "graph build",
     "codegen": "graph codegen --output-dir src/types/",
-    "deploy": "graph deploy paulrberg/create-eth-app --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/"
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ peteruche21/w3c",
+    "create-local": "graph create --node http://localhost:8020/ peteruche21/w3c",
+    "remove-local": "graph remove --node http://localhost:8020/ peteruche21/w3c",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 peteruche21/w3c"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.26.0",
+    "@graphprotocol/graph-ts": "0.24.1"
   }
 }

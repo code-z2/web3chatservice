@@ -1,26 +1,41 @@
 specVersion: 0.0.2
-description: Subgraph that indexes the blockchain data
-repository: https://github.com/sablierhq/sablier-subgraph
 schema:
   file: ./schema.graphql
 dataSources:
-  - kind: ethereum/contract
-    name: CeaErc20
-    network: mainnet
+  - kind: ethereum
+    name: ChatController
+    network: mumbai
     source:
-      abi: erc20
-      address: "0xc1C0472c0C80bCcDC7F5D01A376Bd97a734B8815"
+      address: "0x4C3C39484674b6B7144a2745569179857e78F551"
+      abi: ChatController
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.3
-      abis:
-        - name: erc20
-          file: ../contracts/src/abis/erc20.json
-      entities:
-        - Token
-        - Transfer
-      eventHandlers:
-        - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleTransfer
-      file: ./src/mappings/transfers.ts
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
+      entities:
+        - Approval
+        - ApprovalForAll
+        - ContentAdded
+        - MessageCreated
+        - SessionCreated
+        - Transfer
+        - createdController
+      abis:
+        - name: ChatController
+          file: ./abis/ChatController.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: ContentAdded(indexed bytes32,string)
+          handler: handleContentAdded
+        - event: MessageCreated(indexed bytes32,indexed address,indexed bytes32,bytes32,bytes32)
+          handler: handleMessageCreated
+        - event: SessionCreated(indexed bytes32,address)
+          handler: handleSessionCreated
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: createdController(uint256)
+          handler: handlecreatedController
+      file: ./src/mapping.ts
